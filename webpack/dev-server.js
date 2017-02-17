@@ -2,12 +2,11 @@ var path = require('path')
 var webpack = require('webpack')
 var WebpackDevServer = require('webpack-dev-server')
 var open = require('open')
-var config = require('../config')
-var webpackConfig = require('./dev.conf')
+var webpackConfig = require('./dev.config')
 
 // live
 const server = new WebpackDevServer(webpack(webpackConfig), {
-  contentBase: path.resolve(__dirname, config.assetsRoot),
+  contentBase: path.resolve(__dirname, '../dist'),
   hot: true,
   historyApiFallback: true,
   stats: {
@@ -16,12 +15,12 @@ const server = new WebpackDevServer(webpack(webpackConfig), {
   }
 })
 
-server.listen(config.port, 'localhost', err => {
+server.listen(3000, 'localhost', err => {
   if (err) {
     console.log(err)
     return
   }
-  var url = `http://localhost:${config.port}`
+  var url = `http://localhost:3000`
   console.log(`Listening at ${url}`)
   open(url)
 })

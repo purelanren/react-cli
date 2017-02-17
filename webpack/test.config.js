@@ -1,8 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 var autoprefixer = require('autoprefixer')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var config = require('../config')
 
 module.exports = {
   entry: {
@@ -10,8 +10,8 @@ module.exports = {
   },
 
   output: {
-    path: config.assetsRoot,
-    publicPath: config.assetsPublicPath,
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/',
     filename: 'js/[name].js'
   },
 
@@ -20,8 +20,8 @@ module.exports = {
       ENV_PRODUCTION: false,
     }),
     new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('css/[name].css'),
     new HtmlWebpackPlugin({
-      title: 'react-cli',
       template: path.resolve(__dirname, '../index.html')
     }),
   ],
@@ -52,7 +52,7 @@ module.exports = {
     loaders: [
       {
         test: /\.scss$/,
-        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass',
+        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass'),
         exclude: /node_modules/
       }, {
         test: /\.jsx?$/,
