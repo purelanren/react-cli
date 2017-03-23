@@ -1,7 +1,7 @@
 switch (process.env.NODE_ENV) {
   case 'test':
     module.exports = require('./webpack/test.config')
-    break
+    break;
 
   case 'prod':
   case 'production':
